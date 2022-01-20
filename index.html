@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DDD - cidades Brasil</title>
+</head>
+<body bgcolor="#90EE90">
+    
+	<input type="text" id="DDD" placeholder="Digite o DDD" size="15">
+	<ul></ul>
+	
+<script>
+	document.querySelector("#DDD").addEventListener("change", buscaDados);
+    function buscaDados(evento){
+		fetch(`https://brasilapi.com.br/api/ddd/v1/${evento.target.value}`)
+		.then( resposta => resposta.json())	
+		.then(dados => {
+		   atribui(dados.cities)
+		});
+   }
+	
+	function atribui(cidades){
+	   const tamanho = cidades.length;
+	   const lista = document.querySelector('ul');
+	   lista.innerHTML = "<ul></ul>"
+	    for (let i = 0; i < tamanho; i++){
+	      const item = document.createElement('li');
+		  item.textContent = cidades[i];
+		  lista.append(item);
+	      
+	   }
+	}   
+  
+	
+</script>
+	
+</body>
+</html>
